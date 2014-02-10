@@ -5,6 +5,7 @@
 package lpfastsolution;
 
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.PriorityQueue;
 
 
@@ -64,23 +65,58 @@ public class Dijkstra {
         });
         pq.add(source);
         int nextNode, adjacentNode, newDistance;
+        
+        
+        int counter=0;
+        
         while(!pq.isEmpty()){
+            if(verbose){
+                counter++;
+                System.out.printf("==============Iteration %d==============\n",counter);
+                System.out.printf("Priority Queue: ");
+                Iterator iter = pq.iterator();
+                while(iter.hasNext()){
+                    System.out.printf("%d ",iter.next());
+                }
+                System.out.println();
+            }
+            
+            
+            
+            
             nextNode = (int) pq.poll();
-            System.out.printf("Iteration: pick node %d\n",nextNode);
+            if(verbose){
+                System.out.printf("pick up node %d and remove it from PQ\n",nextNode);
+                System.out.printf("Check adjacent nodes of Node %d:\n",nextNode);
+            }
             for(adjacentNode=0;adjacentNode<numOfNodes;adjacentNode++){
                 if(adjacentNode !=nextNode && inputGraph[nextNode][adjacentNode] != 0){    //this node is an adjacent node of nextNode
                     newDistance = node[nextNode].distance + inputGraph[nextNode][adjacentNode];
+                    if(verbose){
+                        System.out.printf("    iter: check Node %d, newDistance = %d\n",adjacentNode, newDistance);
+                    }
                     
                     if(node[adjacentNode].distance == -1){
+                        
                         node[adjacentNode].distance = newDistance;
                         pq.add(adjacentNode);
                         node[adjacentNode].path=nextNode;
+                        
+                        if(verbose){
+                            System.out.printf("         Condition: Node[%d].distance == -1\n",adjacentNode);
+                            System.out.printf("             Update node[%d]: distance = %d, path = Node %d\n",adjacentNode,node[adjacentNode].distance,node[adjacentNode].path);
+                        }
                     }
                     
                     if(node[adjacentNode].distance > newDistance){
+                        int oldDist = node[adjacentNode].distance;  //for verbose
                         node[adjacentNode].distance = newDistance;
                         
                         node[adjacentNode].path=nextNode;
+                        if(verbose){
+                            System.out.printf("         Condition: Node[%d].distance %d > newDistance %d\n",adjacentNode, oldDist, newDistance);
+                            System.out.printf("             Update node[%d]: distance = %d, path = Node %d\n",adjacentNode,node[adjacentNode].distance,node[adjacentNode].path);
+                        }
                     }
                 }
             }
