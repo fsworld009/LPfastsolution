@@ -1,13 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
+import lpfastsolution.Dijkstra;
 
-/**
- *
- * @author WorldFS
- */
 public class Main {
 
     /**
@@ -15,5 +8,6 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Dijkstra.unitTest();
     }
 }
