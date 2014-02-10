@@ -77,16 +77,26 @@ public class InputGraphGenerator {
         int ix,jx;
         System.out.printf("====Capacity Demand====\n");
         for(ix=0;ix<numOfNodes;ix++){
+            System.out.printf("N%02d ", ix);
+        }
+        System.out.println();
+        for(ix=0;ix<numOfNodes;ix++){
+            System.out.printf("N%02d ", ix);
             for(jx=0;jx<numOfNodes;jx++){
-                System.out.printf("%d ", demand[ix][jx]);
+                System.out.printf("%3d ", demand[ix][jx]);
             }
             System.out.println();
         }
         
         System.out.printf("\n\n====Unit Link Cost====\n");
         for(ix=0;ix<numOfNodes;ix++){
+            System.out.printf("N%02d ", ix);
+        }
+        System.out.println();
+        for(ix=0;ix<numOfNodes;ix++){
+            System.out.printf("N%02d ", ix);
             for(jx=0;jx<numOfNodes;jx++){
-                System.out.printf("%03d ", cost[ix][jx]);
+                System.out.printf("%3d ", cost[ix][jx]);
             }
             System.out.println();
         }

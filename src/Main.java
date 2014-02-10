@@ -10,7 +10,15 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         //Dijkstra.unitTest();
-        InputGraphGenerator.unitTest();
+        //InputGraphGenerator.unitTest();
+        InputGraphGenerator igg = new InputGraphGenerator();
+        igg.generate(4);
+        igg.print();
+        
+        Dijkstra dijkstra = new Dijkstra(igg.getUnitCost());
+        dijkstra.run(0, 34, false);
+        //dijkstra.inputGraph();
+        
         
         
     }

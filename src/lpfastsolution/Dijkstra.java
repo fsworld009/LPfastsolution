@@ -147,13 +147,18 @@ public class Dijkstra {
             
         }
         
-        if(verbose){
-            System.out.printf("The shortest path is:\n");
+        //if(verbose){
+            int pathLength=0;
+            System.out.printf("The shortest path is: ");
             for(int ix=0;ix<result.length;ix++){
                 System.out.printf("%d ",result[ix]);
+                if(ix != result.length-1){
+                    pathLength+=inputGraph[result[ix]][result[ix+1]];
+                }
             }
-            System.out.println();
-        }
+            System.out.printf("\npath length is: %d\n\n",pathLength);
+            
+        //}
         
         
         return result;
