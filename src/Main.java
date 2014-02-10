@@ -1,5 +1,6 @@
 
 import lpfastsolution.Dijkstra;
+import lpfastsolution.InputGraphGenerator;
 
 public class Main {
 
@@ -8,6 +9,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Dijkstra.unitTest();
+        //Dijkstra.unitTest();
+        InputGraphGenerator.unitTest();
     }
 }
