@@ -78,7 +78,7 @@ public class InputGraphGenerator {
     }
     
     public static void unitTest(){
-        InputGraphGenerator.generate(4);
+        InputGraphGenerator.generate(3);
     }
 }
 
