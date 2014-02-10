@@ -7,6 +7,7 @@ package lpfastsolution;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
+import java.util.Stack;
 
 
 public class Dijkstra {
@@ -87,7 +88,17 @@ public class Dijkstra {
             nextNode = (int) pq.poll();
             if(verbose){
                 System.out.printf("pick up node %d and remove it from PQ\n",nextNode);
-                System.out.printf("Check adjacent nodes of Node %d:\n",nextNode);
+                if(nextNode==destination){
+                    System.out.printf("!!! reach destination, break loop\n");
+                    break;
+                }else{
+                    System.out.printf("Check adjacent nodes of Node %d:\n",nextNode);
+                }
+            }else{
+                if(nextNode==destination){
+                    break;
+                }
+                
             }
             for(adjacentNode=0;adjacentNode<numOfNodes;adjacentNode++){
                 if(adjacentNode !=nextNode && inputGraph[nextNode][adjacentNode] != 0){    //this node is an adjacent node of nextNode
@@ -104,7 +115,7 @@ public class Dijkstra {
                         
                         if(verbose){
                             System.out.printf("         Condition: Node[%d].distance == -1\n",adjacentNode);
-                            System.out.printf("             Update node[%d]: distance = %d, path = Node %d\n",adjacentNode,node[adjacentNode].distance,node[adjacentNode].path);
+                            System.out.printf("             Update Node[%d]: distance = %d, path = Node %d\n",adjacentNode,node[adjacentNode].distance,node[adjacentNode].path);
                         }
                     }
                     
@@ -115,15 +126,37 @@ public class Dijkstra {
                         node[adjacentNode].path=nextNode;
                         if(verbose){
                             System.out.printf("         Condition: Node[%d].distance %d > newDistance %d\n",adjacentNode, oldDist, newDistance);
-                            System.out.printf("             Update node[%d]: distance = %d, path = Node %d\n",adjacentNode,node[adjacentNode].distance,node[adjacentNode].path);
+                            System.out.printf("             Update Node[%d]: distance = %d, path = Node %d\n",adjacentNode,node[adjacentNode].distance,node[adjacentNode].path);
                         }
                     }
                 }
             }
         }
         
+        //get result
+        Stack stack = new Stack();
+        int prevNode = destination;
+        while(prevNode != source){
+            stack.push(prevNode);
+            prevNode = node[prevNode].path;
+        }
+        int[] result = new int[stack.size()+1];
+        result[0] = source;
+        for(int ix=1;ix<result.length;ix++){
+            result[ix]=(Integer)stack.pop();
+            
+        }
         
-        return new int[3];
+        if(verbose){
+            System.out.printf("The shortest path is:\n");
+            for(int ix=0;ix<result.length;ix++){
+                System.out.printf("%d ",result[ix]);
+            }
+            System.out.println();
+        }
+        
+        
+        return result;
         
     }
     
