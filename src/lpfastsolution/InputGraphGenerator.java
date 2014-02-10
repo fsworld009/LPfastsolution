@@ -10,11 +10,14 @@ import java.util.Random;
 
 
 public class InputGraphGenerator {
+    private int[][] demand;
+    private int[][] cost;
+    private int numOfNodes = 35;
     
-    public static void generate(int kx){
-        int numOfNodes = 35;
-        int[][] demand = new int[numOfNodes][numOfNodes];
-        int[][] cost = new int[numOfNodes][numOfNodes];
+    public void generate(int kx){
+        //int numOfNodes = 35;
+        demand = new int[numOfNodes][numOfNodes];
+        cost = new int[numOfNodes][numOfNodes];
         Random random = new Random();
         int nextNode;
         int ix,jx;
@@ -26,12 +29,12 @@ public class InputGraphGenerator {
         
         for(ix=0;ix<numOfNodes;ix++){    
             //pick kx links to be low cost link
-            System.out.printf("Node %d\n",ix);
+            //System.out.printf("Node %d\n",ix);
             while(lowCostLink[ix].size()<kx){
                 nextNode = random.nextInt(numOfNodes);
-                System.out.printf("%d ",nextNode);
+                //System.out.printf("%d ",nextNode);
                 if(nextNode != ix && !lowCostLink[ix].contains(nextNode)){
-                    System.out.printf("    pick node %d\n",nextNode);
+                    //System.out.printf("    pick node %d\n",nextNode);
                     lowCostLink[ix].add(nextNode);
                     lowCostLink[nextNode].add(ix);
                 }
@@ -58,7 +61,21 @@ public class InputGraphGenerator {
                 
             }
         }
-        
+    
+    
+    }
+    
+    public int[][] getDemand(){
+        return demand;
+    }
+    
+    public int[][] getUnitCost(){
+        return cost;
+    }
+    
+    public void print(){
+        int ix,jx;
+        System.out.printf("====Capacity Demand====\n");
         for(ix=0;ix<numOfNodes;ix++){
             for(jx=0;jx<numOfNodes;jx++){
                 System.out.printf("%d ", demand[ix][jx]);
@@ -66,19 +83,19 @@ public class InputGraphGenerator {
             System.out.println();
         }
         
-        System.out.println();
+        System.out.printf("\n\n====Unit Link Cost====\n");
         for(ix=0;ix<numOfNodes;ix++){
             for(jx=0;jx<numOfNodes;jx++){
                 System.out.printf("%03d ", cost[ix][jx]);
             }
             System.out.println();
         }
-    
-    
     }
     
     public static void unitTest(){
-        InputGraphGenerator.generate(3);
+        InputGraphGenerator igg = new InputGraphGenerator();
+        igg.generate(3);
+        igg.print();
     }
 }
 

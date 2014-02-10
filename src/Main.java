@@ -11,5 +11,7 @@ public class Main {
         // TODO code application logic here
         //Dijkstra.unitTest();
         InputGraphGenerator.unitTest();
+        
+        
     }
 }
