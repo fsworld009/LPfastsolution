@@ -51,6 +51,8 @@ public class LPFastSolution {
         }
         
         
+        int totalCost=0;
+        
         System.out.printf("====Result Cost Graph====\n    ");
         for(ix=0;ix<numOfNodes;ix++){
             System.out.printf("N%02d ", ix);
@@ -63,10 +65,12 @@ public class LPFastSolution {
                     System.out.printf("    ");
                 }else{
                     System.out.printf("%3d ", plannedCost[ix][jx]);
+                    totalCost+=plannedCost[ix][jx];
                 }
                 
             }
             System.out.println();
         }
+        System.out.printf("total cost: %d\n",totalCost);
     }
 }
