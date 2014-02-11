@@ -12,7 +12,7 @@ public class Main {
         //Dijkstra.unitTest();
         //InputGraphGenerator.unitTest();
         LPFastSolution lpf = new LPFastSolution();
-        lpf.run();
+        lpf.run(3);
         
         
     }
