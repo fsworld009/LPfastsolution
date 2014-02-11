@@ -5,7 +5,6 @@
 package lpfastsolution;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 
@@ -75,7 +74,7 @@ public class InputGraphGenerator {
     
     public void print(){
         int ix,jx;
-        System.out.printf("====Capacity Demand====\n");
+        System.out.printf("====Capacity Demand====\n    ");
         for(ix=0;ix<numOfNodes;ix++){
             System.out.printf("N%02d ", ix);
         }
@@ -88,7 +87,7 @@ public class InputGraphGenerator {
             System.out.println();
         }
         
-        System.out.printf("\n\n====Unit Link Cost====\n");
+        System.out.printf("\n\n====Unit Link Cost====\n    ");
         for(ix=0;ix<numOfNodes;ix++){
             System.out.printf("N%02d ", ix);
         }
