@@ -24,6 +24,7 @@ public class LPFastSolution {
         
         int ix, jx, zx;
         int[][] plannedCost = new int[numOfNodes][numOfNodes];
+        int[][] plannedCapacity = new int[numOfNodes][numOfNodes];
         
         int[] shortestPath;
         
@@ -44,12 +45,31 @@ public class LPFastSolution {
                             nodeOffset2 = shortestPath[zx];
                         }
                         plannedCost[nodeOffset1][nodeOffset2] += unitCost[nodeOffset1][nodeOffset2]*demand[ix][jx];
+                        plannedCapacity[nodeOffset1][nodeOffset2] += demand[ix][jx];
 
                     }
                }
             }
         }
         
+        
+        System.out.printf("====Result Capacity Graph====\n    ");
+        for(ix=0;ix<numOfNodes;ix++){
+            System.out.printf("N%02d ", ix);
+        }
+        System.out.println();
+        for(ix=0;ix<numOfNodes;ix++){
+            System.out.printf("N%02d ", ix);
+            for(jx=0;jx<numOfNodes;jx++){
+                if(jx<ix){
+                    System.out.printf("    ");
+                }else{
+                    System.out.printf("%3d ", plannedCapacity[ix][jx]);
+                }
+                
+            }
+            System.out.println();
+        }
         
         int totalCost=0;
         
