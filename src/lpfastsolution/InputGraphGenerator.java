@@ -53,9 +53,28 @@ public class InputGraphGenerator {
             }
         }
         
+        //need improve
+        for(ix=0;ix<numOfNodes;ix++){              
+            for(jx=ix;jx<numOfNodes;jx++){
+                if(ix==jx){
+                    unitCost[ix][jx]=0;
+                }else{
+                    if(lowCostLink[ix].contains(jx) || lowCostLink[jx].contains(ix)){
+                        unitCost[ix][jx] = 1;
+                        unitCost[jx][ix] = 1;
+                    }else{
+                        unitCost[ix][jx] = 300;
+                        unitCost[jx][ix] = 300;
+                    }
+                }
+                
+            }
+        }
+        
         
     }
     
+    /*
     public void generate(int kx){
         //int numOfNodes = 35;
         
@@ -105,7 +124,7 @@ public class InputGraphGenerator {
         }
     
     
-    }
+    }*/
     
     public int[][] getDemandCapacity(){
         return demandCapacity;
@@ -146,7 +165,8 @@ public class InputGraphGenerator {
     
     public static void unitTest(){
         InputGraphGenerator igg = new InputGraphGenerator();
-        igg.generate(3);
+        igg.generateDemandCapacity(3);
+        igg.generateUnitCost(3);
         igg.print();
     }
 }

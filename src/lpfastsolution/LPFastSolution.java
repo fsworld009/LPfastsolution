@@ -84,6 +84,7 @@ public class LPFastSolution {
         }
         
         int totalCost=0;
+        int usedLinkCounter = 0;
         
         System.out.printf("====Result Cost Graph====\n    ");
         for(ix=0;ix<numOfNodes;ix++){
@@ -98,12 +99,17 @@ public class LPFastSolution {
                 }else{
                     System.out.printf("%3d ", plannedCost[ix][jx]);
                     totalCost+=plannedCost[ix][jx];
+                    if(plannedCost[ix][jx] != 0){
+                        usedLinkCounter++;
+                    }
                 }
                 
             }
             System.out.println();
         }
+        System.out.printf("number of used links: %d\n",usedLinkCounter);
         System.out.printf("total cost: %d\n",totalCost);
+        System.out.printf("network density: %f\n",((double)usedLinkCounter)/((double)(numOfNodes*(numOfNodes-1))));
         
         FileProcessor.writeMatrix(plannedCost, "plannedCost.txt");
         FileProcessor.writeMatrix(plannedCapacity, "plannedCapacity.txt");
