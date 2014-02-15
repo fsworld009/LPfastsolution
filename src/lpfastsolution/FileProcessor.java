@@ -67,6 +67,7 @@ public class FileProcessor {
             for(int ix=0;ix<matrix.length;ix++){
                 fout.write("    node [\r\n");
                 fout.write(String.format("      id %d\r\n",ix));
+                fout.write(String.format("      label \"%d\"\r\n",ix));
                 fout.write("    ]\r\n");
             }
             
@@ -76,8 +77,8 @@ public class FileProcessor {
                     if(matrix[ix][jx] != 0){
                         fout.write("    edge [\r\n");
                         fout.write(String.format("      source %d\r\n",ix));
-                        fout.write(String.format("      traget %d\r\n",jx));
-                        fout.write(String.format("      value %d\r\n",matrix[ix][jx]));
+                        fout.write(String.format("      target %d\r\n",jx));
+                        fout.write(String.format("      label \"%d\"\r\n",matrix[ix][jx]));
                         fout.write("    ]\r\n");
                     }
                 }
