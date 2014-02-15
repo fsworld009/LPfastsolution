@@ -26,7 +26,9 @@ visual_style["edge_color"] = [color_dict2[weight] for weight in g.es["value"]]
 #visual_style["edge_label"] =  g.es["value"]
 
 visual_style["bbox"] = (1024, 1024)
-plot(g, **visual_style)
+
+
+plot(g, target="1.png", **visual_style)
 
 
 
