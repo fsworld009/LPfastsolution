@@ -16,6 +16,8 @@ public class LPFastSolution {
         int[][] unitCost = igg.getUnitCost();
         int[][] demand = igg.getDemand();
         
+        FileProcessor.writeMatrix(demand, "demand.txt");
+        FileProcessor.writeMatrix(unitCost, "unitCost.txt");
         
         Dijkstra dijkstra = new Dijkstra(unitCost);
         //dijkstra.inputGraph();
@@ -92,5 +94,8 @@ public class LPFastSolution {
             System.out.println();
         }
         System.out.printf("total cost: %d\n",totalCost);
+        
+        FileProcessor.writeMatrix(plannedCost, "plannedCost.txt");
+        FileProcessor.writeMatrix(plannedCapacity, "plannedCapacity.txt");
     }
 }
