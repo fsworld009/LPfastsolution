@@ -9,14 +9,57 @@ import java.util.Random;
 
 
 public class InputGraphGenerator {
-    private int[][] demand;
-    private int[][] cost;
-    private int numOfNodes = 35;
+    private int[][] demandCapacity;
+    private int[][] unitCost;
+    private final int numOfNodes = 35;
+    
+    public void generateDemandCapacity(int kx){
+        demandCapacity = new int[numOfNodes][numOfNodes];
+        Random random = new Random();
+
+        int ix,jx;
+        for(ix=0;ix<numOfNodes;ix++){              
+            for(jx=ix;jx<numOfNodes;jx++){
+                if(ix==jx){
+                    demandCapacity[ix][jx]=0;
+                }else{
+                    demandCapacity[ix][jx]=random.nextInt(4);
+                    demandCapacity[jx][ix] = demandCapacity[ix][jx];
+                }
+            }
+        }
+    }
+    
+    public void generateUnitCost(int kx){
+        int nextNode;
+        int ix,jx;
+        Random random = new Random();
+                
+        unitCost = new int[numOfNodes][numOfNodes];
+        
+        ArrayList[] lowCostLink = new ArrayList[numOfNodes];
+        for(ix=0;ix<numOfNodes;ix++){
+            lowCostLink[ix] = new ArrayList();
+        }
+        
+        for(ix=0;ix<numOfNodes;ix++){    
+            //pick kx links to be low unitCost link
+            while(lowCostLink[ix].size()<kx){
+                nextNode = random.nextInt(numOfNodes);
+                if(nextNode != ix && !lowCostLink[ix].contains(nextNode)){
+                    lowCostLink[ix].add(nextNode);
+                    lowCostLink[nextNode].add(ix);
+                }
+            }
+        }
+        
+        
+    }
     
     public void generate(int kx){
         //int numOfNodes = 35;
-        demand = new int[numOfNodes][numOfNodes];
-        cost = new int[numOfNodes][numOfNodes];
+        
+        unitCost = new int[numOfNodes][numOfNodes];
         Random random = new Random();
         int nextNode;
         int ix,jx;
@@ -27,7 +70,7 @@ public class InputGraphGenerator {
         }
         
         for(ix=0;ix<numOfNodes;ix++){    
-            //pick kx links to be low cost link
+            //pick kx links to be low unitCost link
             //System.out.printf("Node %d\n",ix);
             while(lowCostLink[ix].size()<kx){
                 nextNode = random.nextInt(numOfNodes);
@@ -44,17 +87,17 @@ public class InputGraphGenerator {
         for(ix=0;ix<numOfNodes;ix++){              
             for(jx=ix;jx<numOfNodes;jx++){
                 if(ix==jx){
-                    demand[ix][jx]=0;
-                    cost[ix][jx]=0;
+                    demandCapacity[ix][jx]=0;
+                    unitCost[ix][jx]=0;
                 }else{
-                    demand[ix][jx]=random.nextInt(4);
-                    demand[jx][ix] = demand[ix][jx];
+                    demandCapacity[ix][jx]=random.nextInt(4);
+                    demandCapacity[jx][ix] = demandCapacity[ix][jx];
                     if(lowCostLink[ix].contains(jx) || lowCostLink[jx].contains(ix)){
-                        cost[ix][jx] = 1;
-                        cost[jx][ix] = 1;
+                        unitCost[ix][jx] = 1;
+                        unitCost[jx][ix] = 1;
                     }else{
-                        cost[ix][jx] = 300;
-                        cost[jx][ix] = 300;
+                        unitCost[ix][jx] = 300;
+                        unitCost[jx][ix] = 300;
                     }
                 }
                 
@@ -64,12 +107,12 @@ public class InputGraphGenerator {
     
     }
     
-    public int[][] getDemand(){
-        return demand;
+    public int[][] getDemandCapacity(){
+        return demandCapacity;
     }
     
     public int[][] getUnitCost(){
-        return cost;
+        return unitCost;
     }
     
     public void print(){
@@ -82,7 +125,7 @@ public class InputGraphGenerator {
         for(ix=0;ix<numOfNodes;ix++){
             System.out.printf("N%02d ", ix);
             for(jx=0;jx<numOfNodes;jx++){
-                System.out.printf("%3d ", demand[ix][jx]);
+                System.out.printf("%3d ", demandCapacity[ix][jx]);
             }
             System.out.println();
         }
@@ -95,7 +138,7 @@ public class InputGraphGenerator {
         for(ix=0;ix<numOfNodes;ix++){
             System.out.printf("N%02d ", ix);
             for(jx=0;jx<numOfNodes;jx++){
-                System.out.printf("%3d ", cost[ix][jx]);
+                System.out.printf("%3d ", unitCost[ix][jx]);
             }
             System.out.println();
         }

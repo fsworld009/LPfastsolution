@@ -9,12 +9,19 @@ package lpfastsolution;
  * @author WorldFS
  */
 public class LPFastSolution {
-    public void run(int kx){
+    public void run(int kx, String demandCapacityFilename, String unitCostFilename){
+        int[][] unitCost;
+        int[][] demandCapacity;
+        
         InputGraphGenerator igg = new InputGraphGenerator();
-        igg.generate(kx);
+        
+        
+        //igg.generate(kx);
+        igg.generateDemandCapacity(kx);
+        igg.generateUnitCost(kx);
         igg.print();
-        int[][] unitCost = igg.getUnitCost();
-        int[][] demandCapacity = igg.getDemand();
+        unitCost = igg.getUnitCost();
+        demandCapacity = igg.getDemandCapacity();
         
         FileProcessor.writeMatrix(demandCapacity, "demandCapacity.txt");
         FileProcessor.writeMatrix(unitCost, "unitCost.txt");
