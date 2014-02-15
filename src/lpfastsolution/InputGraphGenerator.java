@@ -11,7 +11,7 @@ import java.util.Random;
 public class InputGraphGenerator {
     private int[][] demandCapacity;
     private int[][] unitCost;
-    private final int numOfNodes = 35;
+    private final int numOfNodes = LPFastSolution.numOfNodes;
     
     public void generateDemandCapacity(int kx){
         demandCapacity = new int[numOfNodes][numOfNodes];
@@ -134,40 +134,12 @@ public class InputGraphGenerator {
         return unitCost;
     }
     
-    public void print(){
-        int ix,jx;
-        System.out.printf("====Capacity Demand====\n    ");
-        for(ix=0;ix<numOfNodes;ix++){
-            System.out.printf("N%02d ", ix);
-        }
-        System.out.println();
-        for(ix=0;ix<numOfNodes;ix++){
-            System.out.printf("N%02d ", ix);
-            for(jx=0;jx<numOfNodes;jx++){
-                System.out.printf("%3d ", demandCapacity[ix][jx]);
-            }
-            System.out.println();
-        }
-        
-        System.out.printf("\n\n====Unit Link Cost====\n    ");
-        for(ix=0;ix<numOfNodes;ix++){
-            System.out.printf("N%02d ", ix);
-        }
-        System.out.println();
-        for(ix=0;ix<numOfNodes;ix++){
-            System.out.printf("N%02d ", ix);
-            for(jx=0;jx<numOfNodes;jx++){
-                System.out.printf("%3d ", unitCost[ix][jx]);
-            }
-            System.out.println();
-        }
-    }
-    
+
     public static void unitTest(){
         InputGraphGenerator igg = new InputGraphGenerator();
         igg.generateDemandCapacity(3);
         igg.generateUnitCost(3);
-        igg.print();
+        //igg.print();
     }
 }
 

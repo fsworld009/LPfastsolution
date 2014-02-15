@@ -2,8 +2,11 @@
 package lpfastsolution;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
@@ -41,7 +44,24 @@ public class FileProcessor {
     }
     
     public static int[][] readMatrix(String filename){
-        return null;
+        Scanner sc=null;
+        int[][] matrix=null;
+        try{
+            sc = new Scanner(new File(filename));
+        }catch(FileNotFoundException e){
+            System.err.printf("file not found\n");
+            return null;
+        }
+ 
+        matrix = new int[LPFastSolution.numOfNodes][LPFastSolution.numOfNodes];
+        
+        for(int ix=0;ix<matrix.length;ix++){
+            for(int jx=0;jx<matrix[ix].length;jx++){
+                matrix[ix][jx] = sc.nextInt();
+            }
+            
+        }
+        return matrix;
     }
     
     public static boolean writeGML(int[][] matrix, String filename){

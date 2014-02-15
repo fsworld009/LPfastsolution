@@ -9,19 +9,36 @@ package lpfastsolution;
  * @author WorldFS
  */
 public class LPFastSolution {
+    public static final int numOfNodes = 35;
     public void run(int kx, String demandCapacityFilename, String unitCostFilename){
         int[][] unitCost;
         int[][] demandCapacity;
+        
         
         InputGraphGenerator igg = new InputGraphGenerator();
         
         
         //igg.generate(kx);
-        igg.generateDemandCapacity(kx);
-        igg.generateUnitCost(kx);
-        igg.print();
-        unitCost = igg.getUnitCost();
-        demandCapacity = igg.getDemandCapacity();
+        
+        if(!demandCapacityFilename.equals("")){
+            demandCapacity = FileProcessor.readMatrix(demandCapacityFilename);
+        }else{
+            igg.generateDemandCapacity(kx);
+            demandCapacity = igg.getDemandCapacity();
+        }
+        
+        if(!unitCostFilename.equals("")){
+            unitCost = FileProcessor.readMatrix(unitCostFilename);
+        }else{
+            igg.generateUnitCost(kx);
+            unitCost = igg.getUnitCost();
+        
+        }
+        
+        
+
+        
+        print(demandCapacity, unitCost);
         
         FileProcessor.writeMatrix(demandCapacity, "demandCapacity.txt");
         FileProcessor.writeMatrix(unitCost, "unitCost.txt");
@@ -31,7 +48,7 @@ public class LPFastSolution {
         
         Dijkstra dijkstra = new Dijkstra(unitCost);
         //dijkstra.inputGraph();
-        int numOfNodes = 35;
+        //int numOfNodes = 35;
 
         
         int ix, jx, zx;
@@ -116,5 +133,34 @@ public class LPFastSolution {
         
         FileProcessor.writeGML(plannedCost, "plannedCostGML.txt");
         FileProcessor.writeGML(plannedCapacity, "plannedCapacityGML.txt");
+    }
+    
+    public void print(int[][] demandCapacity, int[][] unitCost){
+        int ix,jx;
+        System.out.printf("====Capacity Demand====\n    ");
+        for(ix=0;ix<numOfNodes;ix++){
+            System.out.printf("N%02d ", ix);
+        }
+        System.out.println();
+        for(ix=0;ix<numOfNodes;ix++){
+            System.out.printf("N%02d ", ix);
+            for(jx=0;jx<numOfNodes;jx++){
+                System.out.printf("%3d ", demandCapacity[ix][jx]);
+            }
+            System.out.println();
+        }
+        
+        System.out.printf("\n\n====Unit Link Cost====\n    ");
+        for(ix=0;ix<numOfNodes;ix++){
+            System.out.printf("N%02d ", ix);
+        }
+        System.out.println();
+        for(ix=0;ix<numOfNodes;ix++){
+            System.out.printf("N%02d ", ix);
+            for(jx=0;jx<numOfNodes;jx++){
+                System.out.printf("%3d ", unitCost[ix][jx]);
+            }
+            System.out.println();
+        }
     }
 }

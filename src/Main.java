@@ -12,7 +12,9 @@ public class Main {
         //Dijkstra.unitTest();
         //InputGraphGenerator.unitTest();
         LPFastSolution lpf = new LPFastSolution();
-        lpf.run(13,"","");
+        //lpf.run(13,"","");
+        lpf.run(13,"demandCapacity.txt","");
+        //lpf.run(13,"demandCapacity.txt","unitCost.txt");
         
         
     }
