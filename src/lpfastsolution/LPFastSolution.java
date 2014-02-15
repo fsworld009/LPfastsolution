@@ -14,10 +14,13 @@ public class LPFastSolution {
         igg.generate(kx);
         igg.print();
         int[][] unitCost = igg.getUnitCost();
-        int[][] demand = igg.getDemand();
+        int[][] demandCapacity = igg.getDemand();
         
-        FileProcessor.writeMatrix(demand, "demand.txt");
+        FileProcessor.writeMatrix(demandCapacity, "demandCapacity.txt");
         FileProcessor.writeMatrix(unitCost, "unitCost.txt");
+        
+        FileProcessor.writeGML(demandCapacity, "demandCapacityGML.txt");
+        FileProcessor.writeGML(unitCost, "unitCostGML.txt");
         
         Dijkstra dijkstra = new Dijkstra(unitCost);
         //dijkstra.inputGraph();
@@ -34,7 +37,7 @@ public class LPFastSolution {
         
         for(ix=0;ix<numOfNodes;ix++){              
             for(jx=ix;jx<numOfNodes;jx++){
-                if(ix != jx && demand[ix][jx] != 0){
+                if(ix != jx && demandCapacity[ix][jx] != 0){
                     
                     shortestPath = dijkstra.run(ix, jx, false);
                     for(zx=0;zx<shortestPath.length-1;zx++){
@@ -46,8 +49,8 @@ public class LPFastSolution {
                             nodeOffset1 = shortestPath[zx+1];
                             nodeOffset2 = shortestPath[zx];
                         }
-                        plannedCost[nodeOffset1][nodeOffset2] += unitCost[nodeOffset1][nodeOffset2]*demand[ix][jx];
-                        plannedCapacity[nodeOffset1][nodeOffset2] += demand[ix][jx];
+                        plannedCost[nodeOffset1][nodeOffset2] += unitCost[nodeOffset1][nodeOffset2]*demandCapacity[ix][jx];
+                        plannedCapacity[nodeOffset1][nodeOffset2] += demandCapacity[ix][jx];
 
                     }
                }
@@ -97,5 +100,8 @@ public class LPFastSolution {
         
         FileProcessor.writeMatrix(plannedCost, "plannedCost.txt");
         FileProcessor.writeMatrix(plannedCapacity, "plannedCapacity.txt");
+        
+        FileProcessor.writeGML(plannedCost, "plannedCostGML.txt");
+        FileProcessor.writeGML(plannedCapacity, "plannedCapacityGML.txt");
     }
 }
