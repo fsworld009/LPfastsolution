@@ -47,6 +47,8 @@ public class Dijkstra {
             return null;
         }
         
+        System.out.printf("find shortest path btw %d and %d\n",source,destination);
+        
         final Node[] node = new Node[numOfNodes];
         // int[] distance = new int[numOfNodes];
         for(int ix=0;ix<numOfNodes;ix++){
