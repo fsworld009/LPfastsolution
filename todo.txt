@@ -1,3 +1,10 @@
 1. generate graph for report
 2. fix unitCost generate algorithm
 3. report
+
+k up:
+total cost down (use more low cost links)
+capacity on each link down (use more low cost links)
+density up (use more low cost links)
+
+high density might be bad (need to find places to put all these wires)
