@@ -46,4 +46,5 @@ layout = g.layout("grid_fr")
 #print(g.es["value"])
 #ls = ["black" if int(x)>=300 else "red" for x in g.es["value"]]
 visual_style["edge_color"] = ["black" if int(x)>=300 else "red" for x in g.es["value"]]
+visual_style["edge_width"] = 1
 plot(g, target="plannedCost.png", **visual_style)
