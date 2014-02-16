@@ -48,3 +48,11 @@ layout = g.layout("grid_fr")
 visual_style["edge_color"] = ["black" if int(x)>=300 else "red" for x in g.es["value"]]
 visual_style["edge_width"] = 1
 plot(g, target="plannedCost.png", **visual_style)
+
+#plannedCapacity
+g = Graph.Read_GML("plannedCapacityGML.txt");
+layout = g.layout("grid_fr")
+#print(g.es["value"])
+#ls = ["black" if int(x)>=300 else "red" for x in g.es["value"]]
+visual_style["edge_color"] = ["red" if int(x)>=30 else "blue" if int(x)>=20 else "green" if int(x)>=10 else "black" for x in g.es["value"]]
+plot(g, target="plannedCapacity.png", **visual_style)
