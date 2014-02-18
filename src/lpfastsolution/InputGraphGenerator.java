@@ -19,12 +19,11 @@ public class InputGraphGenerator {
 
         int ix,jx;
         for(ix=0;ix<numOfNodes;ix++){              
-            for(jx=ix;jx<numOfNodes;jx++){
+            for(jx=0;jx<numOfNodes;jx++){
                 if(ix==jx){
                     demandCapacity[ix][jx]=0;
                 }else{
                     demandCapacity[ix][jx]=random.nextInt(4);
-                    demandCapacity[jx][ix] = demandCapacity[ix][jx];
                 }
             }
         }
@@ -37,41 +36,28 @@ public class InputGraphGenerator {
                 
         unitCost = new int[numOfNodes][numOfNodes];
         
-        ArrayList[] lowCostLink = new ArrayList[numOfNodes];
-        for(ix=0;ix<numOfNodes;ix++){
-            lowCostLink[ix] = new ArrayList();
-        }
+        ArrayList lowCostLink = new ArrayList();
+
         
         for(ix=0;ix<numOfNodes;ix++){    
             //pick kx links to be low unitCost link
-            while(lowCostLink[ix].size()<kx){
+            while(lowCostLink.size()<kx){
                 nextNode = random.nextInt(numOfNodes);
-                if(nextNode != ix && !lowCostLink[ix].contains(nextNode)){
-                    lowCostLink[ix].add(nextNode);
-                    lowCostLink[nextNode].add(ix);
+                if(nextNode != ix && !lowCostLink.contains(nextNode)){
+                    lowCostLink.add(nextNode);
                 }
             }
-        }
-        
-        //need improve
-        for(ix=0;ix<numOfNodes;ix++){              
-            for(jx=ix;jx<numOfNodes;jx++){
-                if(ix==jx){
-                    unitCost[ix][jx]=0;
+            for(jx=0;jx<numOfNodes;jx++){
+                if(lowCostLink.contains(jx)){
+                    unitCost[ix][jx] = 1;
                 }else{
-                    if(lowCostLink[ix].contains(jx) || lowCostLink[jx].contains(ix)){
-                        unitCost[ix][jx] = 1;
-                        unitCost[jx][ix] = 1;
-                    }else{
-                        unitCost[ix][jx] = 300;
-                        unitCost[jx][ix] = 300;
-                    }
+                    unitCost[ix][jx] = 300;
                 }
-                
             }
+            lowCostLink.clear();
         }
         
-        
+               
     }
     
     /*
