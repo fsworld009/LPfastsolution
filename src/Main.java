@@ -13,7 +13,7 @@ public class Main {
         //InputGraphGenerator.unitTest();
         LPFastSolution lpf = new LPFastSolution();
         //lpf.run(13,"","");
-        lpf.run(3,"","");
+        lpf.run(6,"","");
         //lpf.run(13,"demandCapacity.txt","unitCost.txt");
         
         
