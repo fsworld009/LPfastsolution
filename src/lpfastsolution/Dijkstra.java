@@ -16,20 +16,31 @@ public class Dijkstra {
         public int path;        //previous node in the shortest path found in the current iteration
     }
     private int[][] inputGraph;
-    //private int[] result;
+    private Result[][] result;
+    
+    private class Result{
+        public int[] path;
+        public int length;
+    }
+
     
     public Dijkstra(int[][] inputGraph){
         this.inputGraph(inputGraph);
+        
+        
     }
     
     public void inputGraph(int[][] inputGraph){
         int length=inputGraph.length;
         this.inputGraph = new int[length][length];
+        result = new Result[length][length];
         for(int ix=0;ix<length;ix++){
             for(int jx=0;jx<length;jx++){
                 this.inputGraph[ix][jx] = inputGraph[ix][jx];
             }
         }
+        
+        
     }
     
     public void printInputGraph(){
@@ -41,13 +52,24 @@ public class Dijkstra {
         }
     }
     
+    /*public int[][] getShortestPathLength(){
+        int length = shortestPathLength.length;
+        int[][] returnMatrix = new int[length][length];
+        for(int ix=0;ix<length;ix++){
+            for(int jx=0;jx<length;jx++){
+                returnMatrix[ix][jx] = shortestPathLength[ix][jx];
+            }
+        }
+        return returnMatrix;
+    }*/
+    
     public int[] run(int source,int destination,boolean verbose){
         int numOfNodes = inputGraph[0].length;
         if(source<0 || destination<0 || source>=numOfNodes || destination>=numOfNodes || source==destination){
             return null;
         }
         
-        System.out.printf("find shortest path btw %d and %d\n",source,destination);
+        if (verbose) System.out.printf("find shortest path btw %d and %d\n",source,destination);
         
         final Node[] node = new Node[numOfNodes];
         // int[] distance = new int[numOfNodes];
@@ -135,36 +157,52 @@ public class Dijkstra {
             }
         }
         
-        //get result
+        //get path by backtracking
         Stack stack = new Stack();
         int prevNode = destination;
         while(prevNode != source){
             stack.push(prevNode);
             prevNode = node[prevNode].path;
         }
-        int[] result = new int[stack.size()+1];
-        result[0] = source;
-        for(int ix=1;ix<result.length;ix++){
-            result[ix]=(Integer)stack.pop();
+        int[] path = new int[stack.size()+1];
+        path[0] = source;
+        for(int ix=1;ix<path.length;ix++){
+            path[ix]=(Integer)stack.pop();
             
         }
         
-        //if(verbose){
-            int pathLength=0;
-            System.out.printf("The shortest path is: ");
-            for(int ix=0;ix<result.length;ix++){
-                System.out.printf("%d ",result[ix]);
-                if(ix != result.length-1){
-                    pathLength+=inputGraph[result[ix]][result[ix+1]];
-                }
+        
+        int pathLength=0;
+        if(verbose) System.out.printf("The shortest path is: ");
+        for(int ix=0;ix<path.length;ix++){
+            if(verbose) System.out.printf("The shortest path is: ");
+            if(ix != path.length-1){
+                pathLength+=inputGraph[path[ix]][path[ix+1]];
             }
-            System.out.printf("\npath length is: %d\n\n",pathLength);
-            
-        //}
+        }
+        if(verbose) System.out.printf("The shortest path is: ");
+
+        //record computation result in an Result matrix (used by getResult/2)
+        if(result[source][destination] == null){
+            result[source][destination] = new Result();
+        }
+
+        result[source][destination].path = path;
+        result[source][destination].length = pathLength;
         
         
-        return result;
+        return path;
         
+    }
+    
+    public String getResult(int source, int destination){
+        String returnString =  String.format("Find shortest path btw %d and %d\n",source,destination);
+        returnString+= "The shortest path is: ";
+        for(int ix=0;ix<result[source][destination].path.length;ix++){
+            returnString += String.format("%d ",result[source][destination].path[ix]);
+        }
+        returnString += String.format("\npath length is: %d\n\n",result[source][destination].length);
+        return returnString;
     }
     
     public static void unitTest(){

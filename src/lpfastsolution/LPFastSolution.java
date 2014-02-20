@@ -63,6 +63,7 @@ public class LPFastSolution {
             for(jx=0;jx<numOfNodes;jx++){
                 if(ix != jx && demandCapacity[ix][jx] != 0){
                     shortestPath = dijkstra.run(ix, jx, false);
+                    resultOutputBuffer += dijkstra.getResult(ix,jx);
                     for(zx=0;zx<shortestPath.length-1;zx++){
                         nodeOffset1 = shortestPath[zx];
                         nodeOffset2 = shortestPath[zx+1];
@@ -73,6 +74,8 @@ public class LPFastSolution {
                }
             }
         }
+        
+        
         
         
         resultOutputBuffer += print("Result Capacity Graph",plannedCapacity);

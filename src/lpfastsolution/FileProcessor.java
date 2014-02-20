@@ -103,10 +103,10 @@ public class FileProcessor {
         
         BufferedWriter fout = new BufferedWriter(fstream);
         try {
-            fout.write("  Creator \"WorldFS\"\r\n");
+            fout.write("  Creator \"yxl122130\"\r\n");
             fout.write("  graph [\r\n");
             fout.write("    directed 1\r\n");
-            fout.write("    comment \"WorldFS\"\r\n");
+            fout.write("    comment \"yxl122130\"\r\n");
             //node
             for(int ix=0;ix<matrix.length;ix++){
                 fout.write("    node [\r\n");
