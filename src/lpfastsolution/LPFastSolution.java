@@ -36,8 +36,9 @@ public class LPFastSolution {
         
         
 
-        
-        print(demandCapacity, unitCost);
+        System.out.println(print("Capacity Demand",demandCapacity));
+        System.out.println(print("Unit Link Cost",unitCost));
+        //print(demandCapacity, unitCost);
         
         FileProcessor.writeMatrix(demandCapacity, "demandCapacity.txt");
         FileProcessor.writeMatrix(unitCost, "unitCost.txt");
@@ -145,5 +146,24 @@ public class LPFastSolution {
             }
             System.out.println();
         }
+    }
+    
+    public String print(String title, int[][] matrix){
+        String result = "";
+        int ix,jx;
+        result+= "====" + title + "====\n    ";
+        for(ix=0;ix<numOfNodes;ix++){
+            result+=String.format("N%02d ", ix);
+        }
+        result+="\n";
+        for(ix=0;ix<numOfNodes;ix++){
+            result+=String.format("N%02d ", ix);
+            for(jx=0;jx<numOfNodes;jx++){
+                result+=String.format("%3d ", matrix[ix][jx]);
+            }
+            result+="\n";
+        }
+        return result;
+        
     }
 }
