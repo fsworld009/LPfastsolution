@@ -18,8 +18,7 @@ public class LPFastSolution {
         InputGraphGenerator igg = new InputGraphGenerator();
         
         
-        //igg.generate(kx);
-        
+       //only used for debug
         if(!demandCapacityFilename.equals("")){
             demandCapacity = FileProcessor.readMatrix(demandCapacityFilename);
         }else{
@@ -62,17 +61,8 @@ public class LPFastSolution {
         for(ix=0;ix<numOfNodes;ix++){              
             for(jx=0;jx<numOfNodes;jx++){
                 if(ix != jx && demandCapacity[ix][jx] != 0){
-                    
                     shortestPath = dijkstra.run(ix, jx, false);
                     for(zx=0;zx<shortestPath.length-1;zx++){
-                        //nodeOffset1 is always < nodeOffset2
-                        //if(shortestPath[zx]<=shortestPath[zx+1]){
-                            //nodeOffset1 = shortestPath[zx];
-                            //nodeOffset2 = shortestPath[zx+1];
-                        //}else{
-                        //    nodeOffset1 = shortestPath[zx+1];
-                        //    nodeOffset2 = shortestPath[zx];
-                        //}
                         nodeOffset1 = shortestPath[zx];
                         nodeOffset2 = shortestPath[zx+1];
                         plannedCost[nodeOffset1][nodeOffset2] += unitCost[nodeOffset1][nodeOffset2]*demandCapacity[ix][jx];

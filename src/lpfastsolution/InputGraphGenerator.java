@@ -50,8 +50,10 @@ public class InputGraphGenerator {
             for(jx=0;jx<numOfNodes;jx++){
                 if(lowCostLink.contains(jx)){
                     unitCost[ix][jx] = 1;
-                }else{
+                }else if(ix != jx){
                     unitCost[ix][jx] = 300;
+                }else{
+                    unitCost[ix][jx] = 0;
                 }
             }
             lowCostLink.clear();
