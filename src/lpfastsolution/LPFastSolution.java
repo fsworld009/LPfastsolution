@@ -34,10 +34,10 @@ public class LPFastSolution {
         
         }
         
-        
+        String resultOutputBuffer=String.format("K=%d\n\n",kx);
 
-        System.out.println(print("Capacity Demand",demandCapacity));
-        System.out.println(print("Unit Link Cost",unitCost));
+        resultOutputBuffer += print("Capacity Demand",demandCapacity);
+        resultOutputBuffer += print("Unit Link Cost",unitCost);
         //print(demandCapacity, unitCost);
         
         FileProcessor.writeMatrix(demandCapacity, "demandCapacity.txt");
@@ -75,51 +75,37 @@ public class LPFastSolution {
         }
         
         
-        System.out.printf("====Result Capacity Graph====\n    ");
-        for(ix=0;ix<numOfNodes;ix++){
-            System.out.printf("N%02d ", ix);
-        }
-        System.out.println();
-        for(ix=0;ix<numOfNodes;ix++){
-            System.out.printf("N%02d ", ix);
-            for(jx=0;jx<numOfNodes;jx++){
-                System.out.printf("%3d ", plannedCapacity[ix][jx]);               
-            }
-            System.out.println();
-        }
+        resultOutputBuffer += print("Result Capacity Graph",plannedCapacity);
+        resultOutputBuffer += print("Result Cost Graph",plannedCost);
+        
         
         int totalCost=0;
         int usedLinkCounter = 0;
         
-        System.out.printf("====Result Cost Graph====\n    ");
         for(ix=0;ix<numOfNodes;ix++){
-            System.out.printf("N%02d ", ix);
-        }
-        System.out.println();
-        for(ix=0;ix<numOfNodes;ix++){
-            System.out.printf("N%02d ", ix);
             for(jx=0;jx<numOfNodes;jx++){
-                System.out.printf("%3d ", plannedCost[ix][jx]);
                 totalCost+=plannedCost[ix][jx];
                 if(plannedCost[ix][jx] != 0){
                     usedLinkCounter++;
                 }
                 
             }
-            System.out.println();
         }
-        System.out.printf("number of used links: %d\n",usedLinkCounter);
-        System.out.printf("total cost: %d\n",totalCost);
-        System.out.printf("network density: %f\n",((double)usedLinkCounter)/((double)(numOfNodes*(numOfNodes-1))));
+
+        resultOutputBuffer += String.format("number of used links: %d\n",usedLinkCounter);
+        resultOutputBuffer += String.format("total cost: %d\n",totalCost);
+        resultOutputBuffer += String.format("network density: %f\n",((double)usedLinkCounter)/((double)(numOfNodes*(numOfNodes-1))));
         
         FileProcessor.writeMatrix(plannedCost, "plannedCost.txt");
         FileProcessor.writeMatrix(plannedCapacity, "plannedCapacity.txt");
         
         FileProcessor.writeGML(plannedCost, "plannedCostGML.txt");
         FileProcessor.writeGML(plannedCapacity, "plannedCapacityGML.txt");
+        
+        FileProcessor.writeFile(resultOutputBuffer,"result.txt");
     }
     
-    public void print(int[][] demandCapacity, int[][] unitCost){
+    /*public void print(int[][] demandCapacity, int[][] unitCost){
         int ix,jx;
         System.out.printf("====Capacity Demand====\n    ");
         for(ix=0;ix<numOfNodes;ix++){
@@ -146,7 +132,7 @@ public class LPFastSolution {
             }
             System.out.println();
         }
-    }
+    }*/
     
     public String print(String title, int[][] matrix){
         String result = "";
@@ -163,6 +149,7 @@ public class LPFastSolution {
             }
             result+="\n";
         }
+        result+="\n";
         return result;
         
     }
